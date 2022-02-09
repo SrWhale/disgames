@@ -1,9 +1,13 @@
-import { User } from 'discord.js';
+import { User, MessageInteraction } from 'discord.js';
 
 interface defaultGameOptions {
     name: string;
     description: string,
-    user?: User
+    user: User,
+    size: number,
+    board: Array<Array<string | number>>,
+    interaction: MessageInteraction
+
 }
 
-export default defaultGameOptions
+export default defaultGameOptions;

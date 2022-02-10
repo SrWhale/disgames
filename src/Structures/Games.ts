@@ -1,19 +1,14 @@
-import { MessageInteraction, User } from 'discord.js';
+import { CommandInteraction, User } from 'discord.js';
 
 import defaultGameOptions from '../typings/defaultGameOptions';
 
 export default class gameStructure {
-    name: string;
-    description: string;
     user: User;
     size: number;
     board: Array<Array<string | number>>;
-    interaction: MessageInteraction
+    interaction: CommandInteraction
 
     constructor(options: defaultGameOptions) {
-        this.name = options.name;
-
-        this.description = options.description
 
         this.interaction = options.interaction;
 

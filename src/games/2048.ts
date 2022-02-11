@@ -29,11 +29,14 @@ export default class Two extends gameStructure {
 
     emojis: Array<emojiObject>;
 
+    board: Array<Array<number>>
     constructor(options: defaultGameOptions) {
         super(options);
 
         this.name = "2048";
         this.description = "Play 2048!";
+
+        this.board = [];
 
         this.board[this.size] = [];
 

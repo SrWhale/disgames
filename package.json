@@ -20,5 +20,16 @@
     "discord.js": "^13.6.0",
     "ts-node": "^10.5.0",
     "ts-node-dev": "^1.1.8"
-  }
+  },
+  "keywords": [
+    "discord.js",
+    "discord",
+    "games",
+    "discord.js-games",
+    "2048",
+    "tictactoe",
+    "checkers",
+    "chess",
+    "connectfour"
+  ]
 }

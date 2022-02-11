@@ -6,6 +6,11 @@ import { Message, MessageButton, MessageActionRow, ButtonInteraction } from 'dis
 
 import { MessageButtonStyles } from "discord.js/typings/enums";
 
+const emojis: Array<string> = [
+    '0️⃣', '1️⃣', '2️⃣', '3️⃣', '4️⃣',
+    '5️⃣', '6️⃣', '7️⃣', '8️⃣', '9️⃣',
+];
+
 interface pieceObject {
     x: number,
     y: number
@@ -29,6 +34,16 @@ export default class Two extends gameStructure {
 
         this.name = "2048";
         this.description = "Play 2048!";
+
+        this.board[this.size] = [];
+
+        for (let i = 0; i < this.size; i++) {
+            this.board[i] = [];
+
+            for (let j = 0; j < this.size; j++) {
+                this.board[i][j] = 0;
+            }
+        }
 
         this.emojis = [
             {
@@ -148,7 +163,11 @@ export default class Two extends gameStructure {
 
                     let pontuação = 0;
 
-                    this.board.map(e => e.filter(i => i !== 2).map(i => pontuação += this.emojis.find(e => e.value === i).value))
+                    this.board.forEach(e => e.filter(i => i !== 2).map(i => pontuação += this.emojis.find(e => e.value === i)!.value));
+
+                    message.edit({
+                        content: 'Jogo finalizado! Sua pontuação: ' + pontuação.toString().split("").map(i => emojis[Number(i) as number]).join('')
+                    })
 
                 }
             })
@@ -214,6 +233,18 @@ export default class Two extends gameStructure {
     }
 
     handleMessage(board: Array<Array<number>>) {
-        return ''
+        let amount = Math.ceil(board.length / 4);
+        let points = 0;
+
+        board.map(e => e.filter(i => i !== 2).map(i => points += this.emojis.find(e => e.value === i)!.value))
+
+        let message = `${points.toString().split("").map(i => emojis[Number(i) as number]).join('')}\n\n`;
+
+        for (let i = 0; i < board.length; i++) {
+            message += board[i].map(e => this.emojis.find(emoji => emoji.value === e)!.name).join("") + '\n'
+        }
+
+        return message;
+
     }
 }

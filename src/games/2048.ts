@@ -131,8 +131,10 @@ export default class Two extends gameStructure {
             name: 'down'
         }];
 
+        this.addCard();
+
         const message = await this.interaction.reply({
-            content: this.handleMessage(this.board as Array<Array<number>>),
+            content: this.handleMessage(this.board),
             fetchReply: true,
             components: [new MessageActionRow().addComponents(directions.map(direction => direction.button))]
         }) as Message;
@@ -142,7 +144,7 @@ export default class Two extends gameStructure {
         })
 
             .on('collect', async (button: ButtonInteraction) => {
-                button.deferReply();
+                button.deferUpdate()
 
                 const usedPosition = directions.find(d => d.button.customId === button.customId)?.name;
 
@@ -169,9 +171,17 @@ export default class Two extends gameStructure {
                     this.board.forEach(e => e.filter(i => i !== 2).map(i => pontuação += this.emojis.find(e => e.value === i)!.value));
 
                     message.edit({
-                        content: 'Jogo finalizado! Sua pontuação: ' + pontuação.toString().split("").map(i => emojis[Number(i) as number]).join('')
+                        content: 'Jogo finalizado! Sua pontuação: ' + pontuação.toString().split("").map(i => emojis[Number(i) as number]).join(''),
+                        components: []
                     })
 
+                } else {
+
+                    this.addCard();
+
+                    this.interaction.editReply({
+                        content: this.handleMessage(this.board)
+                    })
                 }
             })
     }
@@ -217,17 +227,17 @@ export default class Two extends gameStructure {
         for (let i = 0; i < this.size; i++) {
             for (let j = 0; j < this.size; j++) {
                 if (this.board[i][j] === 0) {
-                    return true;
+                    return false
                 } else if (this.board[i][j] === 8192) {
-                    return false;
+                    return true
                 }
             }
         }
 
-        return false;
+        return true
     }
 
-    async addCard() {
+    addCard() {
         let x = Math.floor(Math.random() * this.size), y = Math.floor(Math.random() * this.size);
 
         if (this.board[x][y] === 0) {

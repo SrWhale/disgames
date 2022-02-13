@@ -50,7 +50,6 @@ export default class Tic extends gameStructure {
 
         this.description = "Play tictactoe!";
 
-        console.log(this.member)
         const shuffle = new Collection<string, GuildMember>()
             .set(this.interaction.member!.user.id as string, this.interaction.member as GuildMember)
             .set(this.member!.id as string, this.member as GuildMember)
@@ -85,7 +84,7 @@ export default class Tic extends gameStructure {
         this.styles = {
             'x': {
                 content: ' ',
-                style: MessageButtonStyles.PRIMARY
+                style: MessageButtonStyles.SECONDARY
             },
             '❌': {
                 content: '❌',
@@ -104,7 +103,7 @@ export default class Tic extends gameStructure {
         const buttons = Array(9).fill(true).map((_, indice) => new MessageButton().setStyle(MessageButtonStyles.PRIMARY).setLabel(' ').setCustomId(`${indice}`));
 
         const message = await this.interaction.reply({
-            content: `Está na vez de ${this.atual}`,
+            content: `Está na vez de ${this.atual.player}`,
             components: this.handleButtons(),
             fetchReply: true
         }) as Message;

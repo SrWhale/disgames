@@ -77,7 +77,7 @@ client.on('interactionCreate', async (interaction) => {
             new games.Tic({
                 interaction: interaction as CommandInteraction,
                 member: interaction.options.getMember('member') as GuildMember
-            })
+            }).play()
         }
     }
 })

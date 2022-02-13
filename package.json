@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/SrWhale/disgames#readme",
   "dependencies": {
+    "aoi.js": "^5.0.8",
     "discord.js": "^13.6.0"
   },
   "keywords": [

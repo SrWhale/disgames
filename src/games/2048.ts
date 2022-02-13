@@ -4,6 +4,8 @@ import defaultGameOptions from "../typings/defaultGameOptions";
 
 import { Message, MessageButton, MessageActionRow, ButtonInteraction } from 'discord.js';
 
+import { Bot } from 'aoi.js';
+
 import { MessageButtonStyles } from "discord.js/typings/enums";
 
 const emojis: Array<string> = [
@@ -22,7 +24,11 @@ interface emojiObject {
     id: string
 }
 
-export default class Two extends gameStructure {
+interface TwoInterface {
+    size: number
+}
+
+export default class Two extends gameStructure{
 
     name: string;
     description: string;
@@ -38,12 +44,12 @@ export default class Two extends gameStructure {
 
         this.board = [];
 
-        this.board[this.size] = [];
+        this.board[(this.size as number)] = [];
 
-        for (let i = 0; i < this.size; i++) {
+        for (let i = 0; i < (this.size as number); i++) {
             this.board[i] = [];
 
-            for (let j = 0; j < this.size; j++) {
+            for (let j = 0; j < (this.size as number); j++) {
                 this.board[i][j] = 0;
             }
         }
@@ -191,15 +197,15 @@ export default class Two extends gameStructure {
 
         let iPlus = (down ? -1 : +1), jPlus = (right ? -1 : +1);
         let xPlus = (up || down ? (up ? -1 : +1) : 0), yPlus = (right || left ? (left ? -1 : +1) : 0);
-        let iStarts = (up || down ? (up ? 1 : this.size - 1) : 0), jStarts = (right || left ? (left ? 1 : this.size - 1) : 0);
+        let iStarts = (up || down ? (up ? 1 : (this.size as number) - 1) : 0), jStarts = (right || left ? (left ? 1 : (this.size as number) - 1) : 0);
 
         const findObject = (object: pieceObject) => {
             return history.filter((key) => object.x === key.x && object.y === key.y)[0];
         };
 
-        for (let k = 0; k < this.size; k++) {
-            for (let i = iStarts; i >= 0 && i < this.size; i += iPlus) {
-                for (let j = jStarts; j >= 0 && j < this.size; j += jPlus) {
+        for (let k = 0; k < (this.size as number); k++) {
+            for (let i = iStarts; i >= 0 && i < (this.size as number); i += iPlus) {
+                for (let j = jStarts; j >= 0 && j < (this.size as number); j += jPlus) {
                     let next = { x: i + xPlus, y: j + yPlus }, current: pieceObject = { x: i, y: j };
 
                     if (this.board[next.x][next.y] === 0 && this.board[current.x][current.y] === 0) continue;
@@ -224,8 +230,8 @@ export default class Two extends gameStructure {
     }
 
     checkEnd() {
-        for (let i = 0; i < this.size; i++) {
-            for (let j = 0; j < this.size; j++) {
+        for (let i = 0; i < (this.size as number); i++) {
+            for (let j = 0; j < (this.size as number); j++) {
                 if (this.board[i][j] === 0) {
                     return false
                 } else if (this.board[i][j] === 8192) {
@@ -238,7 +244,7 @@ export default class Two extends gameStructure {
     }
 
     addCard() {
-        let x = Math.floor(Math.random() * this.size), y = Math.floor(Math.random() * this.size);
+        let x = Math.floor(Math.random() * (this.size as number)), y = Math.floor(Math.random() * (this.size as number));
 
         if (this.board[x][y] === 0) {
             this.board[x][y] = 2;

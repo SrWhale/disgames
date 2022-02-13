@@ -1,11 +1,12 @@
-import { User, CommandInteraction } from 'discord.js';
+import { CommandInteraction, Client, GuildMember, Message } from 'discord.js';
+
+import { Bot } from "aoi.js";
 
 interface defaultGameOptions {
-    user?: User,
-    size: number,
-    board?: Array<Array<string | number>>,
-    interaction: CommandInteraction
-
+    member?: GuildMember,
+    size?: number,
+    board?: Array<Array<string | number>> | Array<string | number>,
+    interaction: CommandInteraction,
 }
 
 export default defaultGameOptions;

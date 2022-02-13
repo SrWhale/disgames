@@ -96,12 +96,10 @@ export default class Tic extends gameStructure {
             }
         };
 
-        this.buttons = Array(9).fill(true).map((_, indice) => new MessageButton().setStyle(MessageButtonStyles.PRIMARY).setLabel(' ').setCustomId(`${indice}`));
+        this.buttons = Array(9).fill(true).map((_, indice) => new MessageButton().setStyle(MessageButtonStyles.SECONDARY).setLabel(' ').setCustomId(`${indice}`));
     }
 
     async play() {
-        const buttons = Array(9).fill(true).map((_, indice) => new MessageButton().setStyle(MessageButtonStyles.PRIMARY).setLabel(' ').setCustomId(`${indice}`));
-
         const message = await this.interaction.reply({
             content: `Está na vez de ${this.atual.player}`,
             components: this.handleButtons(),

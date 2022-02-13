@@ -39,7 +39,7 @@ client.on('interactionCreate', async (interaction) => {
     if(interaction.commandName === 'tictactoe') {
         new TicTacToe({
             interaction,
-            user: interaction.options.getMember('member_option_name')
+            member: interaction.options.getMember('member_option_name')
         })
     };
 

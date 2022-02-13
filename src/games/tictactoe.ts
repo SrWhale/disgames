@@ -50,6 +50,7 @@ export default class Tic extends gameStructure {
 
         this.description = "Play tictactoe!";
 
+        console.log(this.member)
         const shuffle = new Collection<string, GuildMember>()
             .set(this.interaction.member!.user.id as string, this.interaction.member as GuildMember)
             .set(this.member!.id as string, this.member as GuildMember)

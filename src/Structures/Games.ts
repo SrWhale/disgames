@@ -14,7 +14,7 @@ export default class gameStructure {
 
         this.interaction = options.interaction;
 
-        if (options.member) this.member = options.member;
+        this.member = options.member;
 
         this.size = options.size;
     }

@@ -4,7 +4,7 @@ export default {
     games
 };
 
-import { Client, CommandInteraction, Intents, Interaction } from "discord.js";
+import { Client, CommandInteraction, GuildMember, Intents, Interaction } from "discord.js";
 
 const client = new Client({
     intents: [
@@ -75,7 +75,8 @@ client.on('interactionCreate', async (interaction) => {
 
         if ((interaction as CommandInteraction).commandName === 'tictactoe') {
             new games.Tic({
-                interaction: interaction as CommandInteraction
+                interaction: interaction as CommandInteraction,
+                member: interaction.options.getMember('member') as GuildMember
             })
         }
     }
